@@ -58,3 +58,6 @@ jobs:
 
       - name: Run PHP Mess Detector
         run: phpmd app github phpmd.ruleset.xml
+
+      - name: Run phpunit with coverage
+        run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text --coverage-clover clover.xml
