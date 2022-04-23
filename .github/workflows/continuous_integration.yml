@@ -26,6 +26,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
+          tools: phpmd
           extensions: mbstring, dom, fileinfo, mysql
 
       - name: Start mysql service
@@ -54,3 +55,6 @@ jobs:
 
       - name: Run Phpstan
         run: ./vendor/bin/phpstan analyse --error-format=github
+
+      - name: Run PHP Mess Detector
+        run: phpmd app github phpmd.ruleset.xml
