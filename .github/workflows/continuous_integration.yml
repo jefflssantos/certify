@@ -60,4 +60,4 @@ jobs:
         run: phpmd app github phpmd.ruleset.xml
 
       - name: Run phpunit with coverage
-        run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text --coverage-clover clover.xml
+        run: php artisan test --coverage --min=100
