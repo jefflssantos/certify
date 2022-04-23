@@ -51,3 +51,6 @@ jobs:
           php artisan key:generate
       - name: Clear Config
         run: php artisan config:clear
+
+      - name: Run Phpstan
+        run: ./vendor/bin/phpstan analyse --error-format=github
