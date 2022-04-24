@@ -47,7 +47,8 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
-        "phpmd": "./vendor/bin/phpmd app github phpmd.ruleset.xml"
+        "phpmd": "./vendor/bin/phpmd app github phpmd.ruleset.xml",
+        "phpstan": "./vendor/bin/phpstan analyse --error-format=github"
     },
     "extra": {
         "laravel": {
