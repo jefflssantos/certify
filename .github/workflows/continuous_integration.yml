@@ -52,13 +52,16 @@ jobs:
       - name: Clear Config
         run: php artisan config:clear
 
-      - name: Run Phpstan
+      - name: Run PHPCS
+        run: composer run phpstan
+
+      - name: Run PHPStan
         run: composer run phpstan
 
       - name: Run PHP Mess Detector
         run: composer run phpmd
 
-      - name: Run phpunit with coverage
+      - name: Run PHPUnit with coverage check
         run: php artisan test --coverage --min=100 --coverage-clover clover.xml
 
       - name: Upload coverage to Codecov
