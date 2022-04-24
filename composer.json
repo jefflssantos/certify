@@ -1,7 +1,7 @@
 {
     "name": "jefflssantos/certify",
     "type": "project",
-    "description": "Certify.io is a open source certificate generator",
+    "description": "Certify.io is an open source certificate maker.",
     "keywords": ["certificate", "laravel"],
     "license": "MIT",
     "require": {
