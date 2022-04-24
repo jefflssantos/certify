@@ -59,4 +59,7 @@ jobs:
         run: composer run phpmd
 
       - name: Run phpunit with coverage
-        run: php artisan test --coverage --min=100
+        run: php artisan test --coverage --min=100 --coverage-clover clover.xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
