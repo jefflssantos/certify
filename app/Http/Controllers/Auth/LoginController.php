@@ -21,9 +21,11 @@ class LoginController extends Controller
         }
 
         $user = User::whereEmail($data['email'])->first();
+        $token = $user->createToken(config('sanctum.token_name'));
 
         return response()->json([
-            "api_token" => $user->api_token
+            'message' => 'User successfully logged in.',
+            'access_token' => $token->plainTextToken
         ]);
     }
 }

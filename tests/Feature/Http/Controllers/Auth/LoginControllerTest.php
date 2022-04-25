@@ -23,7 +23,7 @@ class LoginTest extends TestCase
         ]);
 
         $response->assertOk()
-            ->assertExactJson(['api_token' => $user->api_token]);
+            ->assertJsonStructure(['message', 'access_token']);
     }
 
     /** @test */
