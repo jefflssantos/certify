@@ -23,13 +23,8 @@ class RegisterControllerTest extends TestCase
 
         $response = $this->postJson('/api/register', $data);
 
-        $user = User::whereEmail($data['email'])->first();
-
         $response->assertCreated()
-            ->assertExactJson([
-                'message' => 'User successfully registered.',
-                'user' => $user->only('name', 'email', 'api_token', 'created_at')
-            ]);
+            ->assertJsonStructure(['message', 'access_token']);
 
         $this->assertDatabaseCount('users', 1);
     }

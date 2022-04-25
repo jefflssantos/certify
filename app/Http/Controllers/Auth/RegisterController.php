@@ -12,19 +12,13 @@ class RegisterController extends Controller
 {
     public function __invoke(RegisterRequest $request): JsonResponse
     {
-        $data = $request->validated();
-        $data['api_token'] = $this->generateApiToken();
+        $user = User::create($request->validated());
 
-        $user = User::create($data);
+        $token = $user->createToken(config('sanctum.token_name'));
 
         return response()->json([
             'message' => 'User successfully registered.',
-            'user' => $user->only('name', 'email', 'api_token', 'created_at')
+            'access_token' => $token->plainTextToken
         ], JsonResponse::HTTP_CREATED);
-    }
-
-    private function generateApiToken(): string
-    {
-        return Str::random(60);
     }
 }
