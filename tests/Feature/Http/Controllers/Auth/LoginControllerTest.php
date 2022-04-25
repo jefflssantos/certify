@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature\Http\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -62,7 +62,7 @@ class LoginTest extends TestCase
     {
         $response = $this->postJson('/api/login');
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        $response->assertStatus(JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
             ->assertExactJson([
                 'message' => 'The email field is required. (and 1 more error)',
                 'errors' => [
@@ -80,7 +80,7 @@ class LoginTest extends TestCase
             'password' => 'wrong-password'
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        $response->assertStatus(JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
             ->assertExactJson([
                 'message' => 'The email must be a valid email address.',
                 'errors' => [

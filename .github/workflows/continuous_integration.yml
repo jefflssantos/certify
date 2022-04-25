@@ -32,7 +32,7 @@ jobs:
       - name: Start mysql service
         run: |
           sudo /etc/init.d/mysql start
-          mysql -u${{ env.DB_USERNAME }} -p${{ env.DB_PASSWORD }} -h${{ env.DB_HOST }} -e 'CREATE DATABASE ${{ env.DB_DATABASE }}; SHOW DATABASES;'
+          mysql -u${{ env.DB_USERNAME }} -p${{ env.DB_PASSWORD }} -h${{ env.DB_HOST }} -e 'CREATE DATABASE ${{ env.DB_DATABASE }};'
 
       - name: Get composer cache directory
         id: composer-cache
