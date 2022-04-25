@@ -6,16 +6,17 @@ jobs:
   continuous-integration:
     runs-on: ubuntu-latest
     env:
-      DB_DATABASE: certify-test
+      DB_CONNECTION: mysql
+      DB_DATABASE: test
       DB_USERNAME: root
-      DB_PASSWORD: password
-      BROADCAST_DRIVER: log
+      DB_PASSWORD: root
+      DB_HOST: 127.0.0.1
     services:
       mysql:
-        image: mysql/mysql-server:8.0
+        image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: certify-test
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test
         ports:
           - 3306/tcp
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -29,7 +30,9 @@ jobs:
           extensions: mbstring, dom, fileinfo, mysql
 
       - name: Start mysql service
-        run: sudo /etc/init.d/mysql start
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -u${{ env.DB_USERNAME }} -p${{ env.DB_PASSWORD }} -h${{ env.DB_HOST }} -e 'CREATE DATABASE ${{ env.DB_DATABASE }};'
 
       - name: Get composer cache directory
         id: composer-cache

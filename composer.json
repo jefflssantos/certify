@@ -51,7 +51,13 @@
         "phpmd": "./vendor/bin/phpmd app github phpmd.ruleset.xml",
         "phpstan": "./vendor/bin/phpstan analyse --error-format=github",
         "phpcs": "./vendor/bin/phpcs --standard=PSR12 ./app",
-        "phpcbf": "./vendor/bin/phpcbf --standard=PSR12 ./app"
+        "phpcbf": "./vendor/bin/phpcbf --standard=PSR12 ./app",
+        "test": [
+            "@phpmd",
+            "@phpstan",
+            "@phpcs",
+            "php artisan test --coverage --min=100"
+        ]
     },
     "extra": {
         "laravel": {
