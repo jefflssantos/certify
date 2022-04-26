@@ -3,9 +3,10 @@
 namespace App\Http\Requests\Module;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +15,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->module->user_id == Auth::user()->id;
     }
 
     /**
@@ -25,7 +26,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', Rule::unique('modules')],
+            'name' => ['required', 'string', Rule::unique('modules')->ignore($this->module->id)],
             'description' => ['nullable', 'string']
         ];
     }

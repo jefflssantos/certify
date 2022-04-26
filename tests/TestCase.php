@@ -4,8 +4,8 @@ namespace Tests;
 
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Laravel\Sanctum\Sanctum;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -13,6 +13,13 @@ abstract class TestCase extends BaseTestCase
 
     protected function createUser(): Authenticatable
     {
-        return User::make(User::factory()->create()->toArray());
+        return User::create(User::factory()->make()->toArray() + ['password' => 123456]);
+    }
+
+    protected function createAndActingAsUser(): Authenticatable
+    {
+        Sanctum::actingAs($user = $this->createUser());
+
+        return $user;
     }
 }

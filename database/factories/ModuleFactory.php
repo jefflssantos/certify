@@ -19,8 +19,7 @@ class ModuleFactory extends Factory
         return [
             'user_id' => null,
             'name' => $this->faker->sentence(6),
-            'description' => $this->faker->paragraph(3),
-            'template' => array_rand(config('templates')),
+            'description' => $this->faker->paragraph(3)
         ];
     }
 }

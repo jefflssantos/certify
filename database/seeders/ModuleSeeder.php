@@ -15,8 +15,8 @@ class ModuleSeeder extends Seeder
      */
     public function run()
     {
-        User::all()->each(function (User $user): void {
-            Module::factory(rand(0, 4))->create(['user_id' => $user->id]);
-        });
+        User::all()->each(fn (User $user) =>
+            Module::factory(rand(0, 4))->create(['user_id' => $user->id])
+        );
     }
 }
