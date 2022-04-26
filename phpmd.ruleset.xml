@@ -34,4 +34,5 @@
 
      <exclude-pattern>*app/Console/Kernel.php</exclude-pattern>
      <exclude-pattern>*app/Exceptions/Handler.php</exclude-pattern>
+     <exclude-pattern>*app/Http/Resources/*</exclude-pattern>
 </ruleset>
