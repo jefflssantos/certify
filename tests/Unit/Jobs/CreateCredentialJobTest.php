@@ -21,10 +21,6 @@ class CreateCredentialJobTest extends TestCase
 
         $credentialMaker = $this->mock(MakerInterface::class);
 
-        $credential
-            ->shouldReceive('save')
-            ->andReturn(true);
-
         $credentialMaker
             ->shouldReceive('makeImage')
             ->with($credential->issued_to, $credential->email, $credential->expires_at)
@@ -44,6 +40,14 @@ class CreateCredentialJobTest extends TestCase
             ->with('public/pdf/uuid-example.pdf', 'file-content')
             ->once()
             ->andReturn('storage/path/to/pdf');
+
+        $credential
+            ->shouldReceive('update')
+            ->with([
+                'image' => 'public/images/uuid-example.jpeg',
+                'pdf' => 'public/pdf/uuid-example.pdf'
+            ])
+            ->andReturn(true);
 
         $job = new CreateCredentialJob($credential);
         $job->handle($credentialMaker);
