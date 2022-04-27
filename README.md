@@ -14,7 +14,7 @@ Certify is an api for creating digital certificates, being developed for study p
 ```bash
 git clone git@github.com:jefflssantos/certify.git
 ```
-### Start docker (docker compose must be intalled)
+### Start docker (docker compose must be intalled) and install composer dependencies
 ```bash
 docker run --rm \
     -u "$(id -u):$(id -g)" \
