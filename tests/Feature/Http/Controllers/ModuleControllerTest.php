@@ -12,25 +12,12 @@ class ModuleControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test  */
-    public function it_should_forbid_an_unauthenticated_user_to_create_a_module(): void
-    {
-        $module = Module::factory()->make();
-
-        $response = $this->postJson('/api/modules', $module->toArray());
-
-        $response->assertUnauthorized()
-            ->assertExactJson(['message' => 'Unauthenticated.']);
-
-        $this->assertDatabaseCount('modules', 0);
-    }
-
     /** @test */
     public function it_should_list_user_modules(): void
     {
         $user = $this->createAndActingAsUser();
 
-        $modules = Module::factory(20)->create(['user_id' => $user->id]);
+        Module::factory(20)->create(['user_id' => $user->id]);
 
         $response = $this->getJson('/api/modules');
 
@@ -45,6 +32,17 @@ class ModuleControllerTest extends TestCase
                     ->has('links')
                     ->has('data', 15)
             );
+    }
+
+    /** @test  */
+    public function it_should_forbid_an_unauthenticated_user_to_list_modules(): void
+    {
+        $response = $this->getJson(route('modules.index'));
+
+        $response->assertUnauthorized()
+            ->assertExactJson(['message' => 'Unauthenticated.']);
+
+        $this->assertDatabaseCount('modules', 0);
     }
 
     /** @test */
@@ -64,6 +62,37 @@ class ModuleControllerTest extends TestCase
             'name' => $module->name,
             'description' => $module->description
         ]);
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidData
+     */
+    public function it_should_fail_when_invalid_data_is_provided_to_create_a_module(array $data, array $errors): void
+    {
+        $this->createAndActingAsUser();
+
+        $response = $this->postJson(route('modules.store'), $data);
+
+        $response->assertUnprocessable()
+            ->assertJsonValidationErrors($errors);
+
+        $this->assertDatabaseCount('modules', 0);
+
+    }
+
+    public function invalidData(): array
+    {
+        return [
+            'No data provided' => [
+                'data' => [],
+                'errors' => ['name']
+            ],
+            'Name is missing' => [
+                'data' => ['description' => 'some text'],
+                'errors' => ['name']
+            ],
+        ];
     }
 
     /** @test */

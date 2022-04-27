@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Module\StoreRequest;
 use App\Http\Requests\Module\UpdateRequest;
-use App\Http\Requests\Modules\DeleteRequest;
 use App\Http\Resources\ModuleResource;
 use App\Models\Module;
 use Exception;
