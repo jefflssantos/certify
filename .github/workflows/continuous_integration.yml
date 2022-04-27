@@ -56,7 +56,7 @@ jobs:
         run: php artisan config:clear
 
       - name: Run PHPCS
-        run: composer run phpstan
+        run: composer run phpcs
 
       - name: Run PHPStan
         run: composer run phpstan
