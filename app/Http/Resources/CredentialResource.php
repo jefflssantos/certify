@@ -4,6 +4,16 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property string $uuid
+ * @property string $issued_to
+ * @property string $email
+ * @property string $image
+ * @property string $pdf
+ * @property object|null $expires_at
+ * @property object $created_at
+ * @property object $updated_at
+ */
 class CredentialResource extends JsonResource
 {
     /**

@@ -10,6 +10,7 @@ use App\Models\Module;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CredentialController extends Controller
 {
@@ -28,12 +29,9 @@ class CredentialController extends Controller
     public function store(Module $module, StoreRequest $request): JsonResponse
     {
         $credential = $module->credentials()->create($request->validated());
-
         CreateCredentialJob::dispatch($credential);
 
-        // dispatch a event credential created
-
-        return response()->json([], JsonResponse::HTTP_ACCEPTED);
+        return response()->json(['message' => 'Credential creation is queued.'], JsonResponse::HTTP_ACCEPTED);
     }
 
     public function destroy(Module $module, Credential $credential): JsonResponse
