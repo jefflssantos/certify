@@ -125,7 +125,9 @@ class ModuleControllerTest extends TestCase
         $response = $this->putJson("/api/modules/{$currentModule->id}", $module->toArray());
 
         $response->assertOk()
-            ->assertJsonStructure(['data' => ['id', 'name', 'description', 'created_at', 'updated_at']]);
+            ->assertJsonStructure(['data' => [
+                'id', 'name', 'description', 'created_at', 'updated_at']
+            ]);
 
         $this->assertDatabaseHas('modules', [
             'id' => $currentModule->id,
