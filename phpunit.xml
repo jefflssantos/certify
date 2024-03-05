@@ -22,6 +22,7 @@
             <file>app/Providers/BroadcastServiceProvider.php</file>
             <file>app/Providers/RouteServiceProvider.php</file>
             <file>app/Http/Middleware/TrustHosts.php</file>
+            <file>app/Console/Kernel.php</file>
         </exclude>
     </coverage>
     <php>
